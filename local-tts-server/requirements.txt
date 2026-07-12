@@ -1,0 +1,52 @@
+# ---------------------------------------------------------------------------
+# Linux deployment requirements for the CurrenX TTS + cloning backend.
+#
+# IMPORTANT: this file is intentionally NOT the same as a local Intel Mac
+# setup. On Linux, PyPI ships current wheels for torch/numpy/llvmlite/
+# transformers, so none of the version-capping workarounds needed on Intel
+# macOS (torch==2.2.2, numpy<2, conda-forge librosa) are required here.
+# Plain `pip install -r requirements.txt` should resolve cleanly.
+# ---------------------------------------------------------------------------
+
+# --- Web server ---
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-dotenv==1.0.1
+
+# --- Core ML stack (modern, unrestricted versions — Linux has wheels for all of these) ---
+torch==2.5.1
+torchaudio==2.5.1
+transformers==4.47.1
+numpy==1.26.4
+scipy==1.14.1
+scikit-learn==1.6.0
+numba==0.60.0
+llvmlite==0.43.0
+librosa==0.10.2.post1
+
+# --- Audio I/O ---
+soundfile==0.12.1
+pydub==0.25.1
+
+# --- Kokoro TTS ---
+kokoro==0.9.4
+misaki[en]==0.9.4
+
+# --- OpenVoice V2 cloning + its text-normalization / language deps ---
+git+https://github.com/myshell-ai/OpenVoice.git
+wavmark==0.0.3
+faster-whisper==1.2.1
+inflect==7.5.0
+unidecode==1.4.0
+eng_to_ipa==0.0.2
+pypinyin==0.55.0
+cn2an==0.5.24
+jieba==0.42.1
+langid==1.1.6
+
+# --- Supabase + HTTP ---
+supabase==2.31.0
+requests==2.32.3
+
+# --- Checkpoint download (used at Docker build time, not runtime) ---
+huggingface_hub==0.27.0
